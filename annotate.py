@@ -332,7 +332,7 @@ if __name__ == "__main__":
     if os.path.isfile(os.path.join(args.xml_path, "dataset_info.csv")):
         dataset_info = pd.read_csv(os.path.join(args.xml_path, "dataset_info.csv"))
     else:
-        images = sorted(os.listdir(args.img_path))
+        images = filter(lambda x: any(x.lower().endswith(ext) for ext in [".png", ".jpg", ".jpeg"]), sorted(os.listdir(args.img_path)))
         dataset_info = pd.DataFrame({'image': images})
         dataset_info['split'] = 'training'
         if not args.no_splits and 0 < args.test_pct < 100:
