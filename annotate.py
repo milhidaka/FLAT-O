@@ -270,7 +270,7 @@ def update_xml(split_name='training'):
             box_tag = ET.SubElement(new_image_tag, "box")
 
             for i, a in enumerate(['left', 'top', 'width', 'height']):
-                box_tag.set(a, str(face_xywh[i]))
+                box_tag.set(a, str(face_xywh[i]/ratio))
 
             # Print all the landmark in XML scaling the coordinates to the original size
             part_count = 0
@@ -278,8 +278,8 @@ def update_xml(split_name='training'):
                 for c in part_coords:
                     part_tag = ET.SubElement(box_tag, "part")
                     part_tag.set("name", str(part_count).zfill(2))
-                    part_tag.set("x", str(int(c[0]*ratio)))
-                    part_tag.set("y", str(int(c[1]*ratio)))
+                    part_tag.set("x", str(int(c[0]/ratio)))
+                    part_tag.set("y", str(int(c[1]/ratio)))
                     part_count += 1
 
 
